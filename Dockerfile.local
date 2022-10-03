@@ -1,0 +1,4 @@
+FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
+ARG BUILD=debug
+COPY ./target/${BUILD}/alertmanager-webhook /usr/local/bin/alertmanager-webhook
+ENTRYPOINT ["alertmanager-webhook"]
