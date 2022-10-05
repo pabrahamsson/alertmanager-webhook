@@ -1,4 +1,4 @@
-use std::env;
+use std::{collections::HashMap,env};
 
 use bytes::Buf;
 use changecase::ChangeCase;
@@ -35,8 +35,8 @@ struct AMAlerts {
 #[serde(rename_all = "camelCase")]
 #[allow(dead_code)]
 struct AMAlert {
-    //annotations: Option<HashMap<String, String>>,
-    annotations: Value,
+    annotations: HashMap<String, String>,
+    //annotations: Value,
     ends_at: String,
     fingerprint: String,
     #[serde(rename = "generatorURL")]
@@ -90,13 +90,21 @@ async fn alerts_post_response(req: Request<Body>, client: &Client<HttpsConnector
         }  else {
             COLOR_GREEN
         };
+        let description = if alert.annotations.contains_key(&String::from("description")) {
+            &alert.annotations["description"]
+        } else if alert.annotations.contains_key(&String::from("message")) {
+            &alert.annotations["message"]
+        } else {
+            "{}"
+        };
         let embed = DiscordEmbed {
             title: format!("{} - {} ({})",
                        alert.labels["alertname"].as_str().unwrap(),
                        alert.status.as_str().to_capitalized(),
                        alert.labels["severity"].as_str().unwrap().to_uppercase()
             ),
-            description: alert.annotations.to_string(),
+            //description: alert.annotations.to_string(),
+            description: description.to_string(),
             color: color,
         };
         embeds.push(embed);
