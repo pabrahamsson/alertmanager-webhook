@@ -47,13 +47,13 @@ struct AMAlert {
     status: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Debug)]
 struct DiscordMessage {
     //content: String,
     embeds: Vec<DiscordEmbed>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Debug)]
 struct DiscordEmbed {
     title: String,
     description: String,
@@ -95,7 +95,7 @@ async fn alerts_post_response(req: Request<Body>, client: &Client<HttpsConnector
         } else if alert.annotations.contains_key(&String::from("message")) {
             &alert.annotations["message"]
         } else {
-            "{}"
+            "No 'description' or 'message' annotation found..."
         };
         let embed = DiscordEmbed {
             title: format!("{} - {} ({})",
