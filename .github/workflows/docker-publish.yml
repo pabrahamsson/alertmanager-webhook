@@ -6,14 +6,17 @@ name: Publish image
 # documentation.
 
 on:
-  #schedule:
-  #  - cron: '36 3 * * *'
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
     # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    tags:
+      - 'v*.*.*'
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 env:
   # Use docker.io for Docker Hub if empty
