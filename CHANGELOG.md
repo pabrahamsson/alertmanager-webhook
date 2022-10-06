@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.2.0...v0.2.1) (2022-10-06)
+
+
+### Bug Fixes
+
+* Add ignore paths to Rust workflows ([08811f8](https://github.com/pabrahamsson/alertmanager-webhook/commit/08811f80caf8c3f5775bc36ece20f587a02774d3))
+
 ## [0.2.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.1.2...v0.2.0) (2022-10-06)
 
 
