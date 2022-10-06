@@ -91,22 +91,21 @@ async fn get_description(annotations: &HashMap<String,String>) -> String {
 }
 
 async fn create_embed(alert: &AMAlert) -> DiscordEmbed {
-    let color = if alert.status == String::from("firing") {
+    let color = if alert.status == *"firing" {
         COLOR_RED
     } else {
         COLOR_GREEN
     };
     let description = get_description(&alert.annotations).await;
-    let embed = DiscordEmbed {
+    DiscordEmbed {
         title: format!("{} - {} ({})",
             alert.labels["alertname"].as_str().unwrap(),
             alert.status.as_str().to_capitalized(),
             alert.labels["severity"].as_str().unwrap().to_uppercase()
         ),
-        description: description.to_string(),
-        color: color,
-    };
-    embed
+        description,
+        color,
+    }
 }
 
 async fn alerts_post_response(req: Request<Body>, client: &Client<HttpsConnector<HttpConnector>>) -> Result<Response<Body>> {
@@ -114,12 +113,12 @@ async fn alerts_post_response(req: Request<Body>, client: &Client<HttpsConnector
     let alerts: AMAlerts = serde_json::from_reader(whole_body.reader())?;
     let mut embeds = Vec::new();
     for alert in &alerts.alerts {
-        let embed = create_embed(&alert).await;
+        let embed = create_embed(alert).await;
         embeds.push(embed);
     };
-    if embeds.len() > 0 {
+    if !embeds.is_empty()  {
         let discord_message = DiscordMessage {
-            embeds: embeds,
+            embeds,
         };
         discord_alert(client, discord_message).await?;
     }
