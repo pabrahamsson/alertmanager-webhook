@@ -6,8 +6,8 @@ name: Publish image
 # documentation.
 
 on:
-  schedule:
-    - cron: '36 3 * * *'
+  #schedule:
+  #  - cron: '36 3 * * *'
   push:
     branches: [ "main" ]
     # Publish semver tags as releases.
