@@ -118,7 +118,7 @@ async fn create_embed(alert: &Alert) -> DiscordEmbed {
             alert.status.as_str().to_capitalized(),
             alert.labels["severity"].as_str().to_uppercase()
         ),
-        description: format!("{}", get_description(&alert.annotations).await),
+        description: get_description(&alert.annotations).await,
         color,
     }
 }
