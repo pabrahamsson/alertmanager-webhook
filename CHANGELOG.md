@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.2.1...v0.3.0) (2023-01-02)
+
+
+### Features
+
+* Use KV type and improve alert coloring ([fc38fb2](https://github.com/pabrahamsson/alertmanager-webhook/commit/fc38fb260a1b2511dcb2bb7d2dc8cd8208e009fb))
+
 ## [0.2.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.2.0...v0.2.1) (2022-10-06)
 
 
