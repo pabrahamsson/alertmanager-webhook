@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.1...v0.3.2) (2023-01-02)
+
+
+### Bug Fixes
+
+* Make Clippy happy ([b6cf5b8](https://github.com/pabrahamsson/alertmanager-webhook/commit/b6cf5b832c1f2205eb58b694de1e79c1eccbe1e6))
+
 ## [0.3.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.0...v0.3.1) (2023-01-02)
 
 
