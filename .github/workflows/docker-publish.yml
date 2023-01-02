@@ -12,7 +12,6 @@ on:
     paths-ignore:
       - '.github/**'
       - '*.md'
-      - 'Cargo.*'
       - 'Makefile'
     # Publish semver tags as releases.
     tags:
@@ -23,7 +22,6 @@ on:
     paths-ignore:
       - '.github/**'
       - '*.md'
-      - 'Cargo.*'
       - 'Makefile'
 
 env:
