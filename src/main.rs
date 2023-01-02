@@ -1,27 +1,33 @@
-use std::{collections::HashMap,env};
+use std::{collections::HashMap, env};
 
 use bytes::Buf;
 use changecase::ChangeCase;
-use hyper::client::HttpConnector;
-use hyper::service::{make_service_fn, service_fn};
-use hyper::{header, Body, Client, Method, Request, Response, Server, StatusCode};
+use hyper::{
+    client::HttpConnector,
+    header,
+    service::{make_service_fn, service_fn},
+    Body, Client, Method, Request, Response, Server, StatusCode,
+};
 use hyper_tls::HttpsConnector;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
 type GenericError = Box<dyn std::error::Error + Send + Sync>;
 type Result<T> = std::result::Result<T, GenericError>;
+type KV = HashMap<String, String>;
 
 static NOTFOUND: &[u8] = b"Not Found";
 static OK: &[u8] = b"ok";
-static COLOR_GREEN: u32 = 3066993;
-static COLOR_RED: u32 = 10038562;
+static COLOR_BLUE: u32 = 255;
+static COLOR_GREEN: u32 = 65280;
+static COLOR_ORANGE: u32 = 16744448;
+static COLOR_RED: u32 = 16711680;
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 #[allow(dead_code)]
-struct AMAlerts {
-    alerts: Vec<AMAlert>,
+struct Data {
+    alerts: Vec<Alert>,
     common_annotations: Value,
     common_labels: Value,
     #[serde(rename = "externalURL")]
@@ -35,14 +41,13 @@ struct AMAlerts {
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 #[allow(dead_code)]
-struct AMAlert {
-    annotations: HashMap<String, String>,
+struct Alert {
+    annotations: KV,
     ends_at: String,
     fingerprint: String,
     #[serde(rename = "generatorURL")]
     generator_url: String,
-    //labels: Option<HashMap<String, String>>,
-    labels: Value,
+    labels: KV,
     starts_at: String,
     status: String,
 }
@@ -58,7 +63,6 @@ struct DiscordEmbed {
     title: String,
     description: String,
     color: u32,
-    //fields: Vec<DiscordField>,
 }
 
 #[derive(Serialize)]
@@ -67,7 +71,10 @@ struct DiscordField {
     value: String,
 }
 
-async fn discord_alert(client: &Client<HttpsConnector<HttpConnector>>, message: DiscordMessage) -> Result<Response<Body>> {
+async fn discord_alert(
+    client: &Client<HttpsConnector<HttpConnector>>,
+    message: DiscordMessage,
+) -> Result<Response<Body>> {
     let discord_url = env::var("WEBHOOK")?;
     let req = Request::builder()
         .method(Method::POST)
@@ -80,46 +87,55 @@ async fn discord_alert(client: &Client<HttpsConnector<HttpConnector>>, message: 
     Ok(Response::new(res.into_body()))
 }
 
-async fn get_description(annotations: &HashMap<String,String>) -> String {
+async fn get_description(annotations: &KV) -> String {
     if annotations.contains_key(&String::from("description")) {
         annotations["description"].clone()
     } else if annotations.contains_key(&String::from("message")) {
         annotations["message"].clone()
+    } else if annotations.contains_key(&String::from("summary")) {
+        annotations["summary"].clone()
     } else {
         "No 'description' or 'message' annotation found...".to_string()
     }
 }
 
-async fn create_embed(alert: &AMAlert) -> DiscordEmbed {
+async fn create_embed(alert: &Alert) -> DiscordEmbed {
     let color = if alert.status == *"firing" {
-        COLOR_RED
+        if alert.labels["severity"] == "critical" {
+            COLOR_RED
+        } else if alert.labels["severity"] == "warning" {
+            COLOR_ORANGE
+        } else {
+            COLOR_BLUE
+        }
     } else {
         COLOR_GREEN
     };
-    let description = get_description(&alert.annotations).await;
     DiscordEmbed {
-        title: format!("{} - {} ({})",
-            alert.labels["alertname"].as_str().unwrap(),
+        title: format!(
+            "{} - {} ({})",
+            alert.labels["alertname"].as_str(),
             alert.status.as_str().to_capitalized(),
-            alert.labels["severity"].as_str().unwrap().to_uppercase()
+            alert.labels["severity"].as_str().to_uppercase()
         ),
-        description,
+        description: format!("{}", get_description(&alert.annotations).await),
         color,
     }
 }
 
-async fn alerts_post_response(req: Request<Body>, client: &Client<HttpsConnector<HttpConnector>>) -> Result<Response<Body>> {
-    let whole_body = hyper::body::aggregate(req).await?;
-    let alerts: AMAlerts = serde_json::from_reader(whole_body.reader())?;
+async fn alerts_post_response(
+    req: Request<Body>,
+    client: &Client<HttpsConnector<HttpConnector>>,
+) -> Result<Response<Body>> {
+    let body = hyper::body::aggregate(req).await?;
+    let alerts: Data = serde_json::from_reader(body.reader())?;
     let mut embeds = Vec::new();
     for alert in &alerts.alerts {
         let embed = create_embed(alert).await;
         embeds.push(embed);
-    };
-    if !embeds.is_empty()  {
-        let discord_message = DiscordMessage {
-            embeds,
-        };
+    }
+    if !embeds.is_empty() {
+        let discord_message = DiscordMessage { embeds };
         discord_alert(client, discord_message).await?;
     }
     let response = Response::builder()
@@ -135,18 +151,14 @@ async fn response_handler(
 ) -> Result<Response<Body>> {
     match (req.method(), req.uri().path()) {
         (&Method::POST, "/alerts") => alerts_post_response(req, &client).await,
-        (&Method::GET, "/healthz") => {
-            Ok(Response::builder()
-               .status(StatusCode::OK)
-               .body(OK.into())
-               .unwrap())
-        },
-        _ => {
-            Ok(Response::builder()
-               .status(StatusCode::NOT_FOUND)
-               .body(NOTFOUND.into())
-               .unwrap())
-        }
+        (&Method::GET, "/healthz") => Ok(Response::builder()
+            .status(StatusCode::OK)
+            .body(OK.into())
+            .unwrap()),
+        _ => Ok(Response::builder()
+            .status(StatusCode::NOT_FOUND)
+            .body(NOTFOUND.into())
+            .unwrap()),
     }
 }
 
@@ -155,8 +167,7 @@ async fn main() -> Result<()> {
     pretty_env_logger::init();
     let addr = "0.0.0.0:6000".parse().unwrap();
     let https = HttpsConnector::new();
-    let client = Client::builder()
-        .build::<_, hyper::Body>(https);
+    let client = Client::builder().build::<_, hyper::Body>(https);
 
     let new_service = make_service_fn(move |_| {
         let client = client.clone();
