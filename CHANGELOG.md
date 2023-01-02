@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.0...v0.3.1) (2023-01-02)
+
+
+### Bug Fixes
+
+* Publish image on new version ([c123f21](https://github.com/pabrahamsson/alertmanager-webhook/commit/c123f21fc82b28867e6cc14c4746c8b7054467f6))
+
 ## [0.3.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.2.1...v0.3.0) (2023-01-02)
 
 
