@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.4](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.3...v0.3.4) (2023-01-03)
+
+
+### Bug Fixes
+
+* Enable Publish Image workflow on PRs ([7c7fd05](https://github.com/pabrahamsson/alertmanager-webhook/commit/7c7fd05824711c1c7765d4c7f4997622379fed08))
+
 ## [0.3.3](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.2...v0.3.3) (2023-01-03)
 
 
