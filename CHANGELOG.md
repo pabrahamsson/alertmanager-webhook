@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.5](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.4...v0.3.5) (2023-01-04)
+
+
+### Bug Fixes
+
+* Use PAT in order to trigger publish workflow ([51ae2f9](https://github.com/pabrahamsson/alertmanager-webhook/commit/51ae2f92063e3cfe4b0f7e82d18bd0cddf50b2c1))
+
 ## [0.3.4](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.3...v0.3.4) (2023-01-03)
 
 
