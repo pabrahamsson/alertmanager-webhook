@@ -15,7 +15,6 @@ jobs:
         with:
           release-type: rust
           package-name: alertmanager-webhook
-          #token: ${{ secrets.PAT }}
 
   publish-latest:
     name: Publish latest container image
@@ -23,7 +22,7 @@ jobs:
     uses: pabrahamsson/alertmanager-webhook/.github/workflows/docker-publish.yml@main
 
   publish-release:
-    name: Publish ${{ needs.release-please.outputs.tags }} container image
+    name: Publish versioned container image
     needs: [release-please]
     if: ${{ needs.release-please.steps.release.outputs.releases_created }}
     uses: pabrahamsson/alertmanager-webhook/.github/workflows/docker-publish.yml@main
