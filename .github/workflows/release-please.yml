@@ -25,7 +25,7 @@ jobs:
   publish-release:
     name: Publish ${{ needs.release-please.outputs.tags }} container image
     needs: [release-please]
-    if: ${{ jobs.release-please.steps.release.outputs.releases_created }}
+    if: ${{ needs.release-please.steps.release.outputs.releases_created }}
     uses: pabrahamsson/alertmanager-webhook/.github/workflows/docker-publish.yml@main
     with:
       tags: ${{ needs.release-please.outputs.tags }}
