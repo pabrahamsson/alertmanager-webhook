@@ -20,12 +20,12 @@ jobs:
   publish-latest:
     name: Publish latest container image
     needs: [release-please]
-    uses: pabrahamsson/alertmanager-webhook/.github/workflows/docker-publish.yaml@main
+    uses: pabrahamsson/alertmanager-webhook/.github/workflows/docker-publish.yml@main
 
   publish-release:
     name: Publish ${{ needs.release-please.outputs.tags }} container image
     needs: [release-please]
     if: ${{ jobs.release-please.steps.release.outputs.releases_created }}
-    uses: pabrahamsson/alertmanager-webhook/.github/workflows/docker-publish.yaml@main
+    uses: pabrahamsson/alertmanager-webhook/.github/workflows/docker-publish.yml@main
     with:
       tags: ${{ needs.release-please.outputs.tags }}
