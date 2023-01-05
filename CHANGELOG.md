@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.6](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.5...v0.3.6) (2023-01-05)
+
+
+### Bug Fixes
+
+* Remove need for PAT ([dc5d216](https://github.com/pabrahamsson/alertmanager-webhook/commit/dc5d216ca96155393fc67049f2f598b368955b4d))
+
 ## [0.3.5](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.4...v0.3.5) (2023-01-04)
 
 
