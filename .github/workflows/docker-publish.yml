@@ -6,16 +6,22 @@ name: Publish image
 # documentation.
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '.github/**'
-      - '*.md'
-      - 'Makefile'
-    # Publish semver tags as releases.
-    tags:
-      - 'v*.*.*'
+  workflow_call:
+    inputs:
+      tags:
+        default: latest
+        required: false
+        type: string
+#  push:
+#    branches:
+#      - main
+#    paths-ignore:
+#      - '.github/**'
+#      - '*.md'
+#      - 'Makefile'
+#    # Publish semver tags as releases.
+#    tags:
+#      - 'v*.*.*'
 #  release:
 #    types: [published]
 
@@ -85,7 +91,7 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
       # Sign the resulting Docker image digest except on PRs.
