@@ -17,6 +17,7 @@ jobs:
           package-name: alertmanager-webhook
       - run: echo "releases_created ${{ steps.release.outputs.releases_created }}"
       - run: echo "release_created ${{ steps.release.outputs.release_created }}"
+      - run: echo "sha ${{ steps.release.outputs.sha }}"
 
   publish-latest:
     name: Publish latest container image
