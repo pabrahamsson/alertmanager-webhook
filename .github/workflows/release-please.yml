@@ -2,12 +2,16 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - Makefile
+      - '.github/**'
 
 name: release-please
 jobs:
   release-please:
     runs-on: ubuntu-latest
     outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
       tags: "${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}"
     steps:
       - uses: google-github-actions/release-please-action@v3
@@ -15,21 +19,16 @@ jobs:
         with:
           release-type: rust
           package-name: alertmanager-webhook
-      - name: Output some vars
-        run: |
-          echo "release_created: ### ${{ steps.release.outputs.release_created }} ###"
-          echo "sha: ### ${{ steps.release.outputs.sha }} ###"
-          echo "tags: ### ${{ needs.release-please.outputs.tags }} ###"
 
   publish-latest:
     name: Publish latest container image
-    needs: [release-please]
+    needs: release-please
     uses: pabrahamsson/alertmanager-webhook/.github/workflows/docker-publish.yml@main
 
   publish-release:
     name: Publish versioned container image
-    needs: [release-please]
-    if: ${{ needs.release-please.steps.release.outputs.releases_created }}
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
     uses: pabrahamsson/alertmanager-webhook/.github/workflows/docker-publish.yml@main
     with:
       tags: ${{ needs.release-please.outputs.tags }}
