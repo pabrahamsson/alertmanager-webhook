@@ -15,9 +15,11 @@ jobs:
         with:
           release-type: rust
           package-name: alertmanager-webhook
-      - run: echo "releases_created ${{ steps.release.outputs.releases_created }}"
-      - run: echo "release_created ${{ steps.release.outputs.release_created }}"
-      - run: echo "sha ${{ steps.release.outputs.sha }}"
+      - name: Output some vars
+        run: |
+          echo "releases_created: ${{ steps.release.outputs.releases_created }}"
+          echo "release_created: ${{ steps.release.outputs.release_created }}"
+          echo "sha: ${{ steps.release.outputs.sha }}"
 
   publish-latest:
     name: Publish latest container image
