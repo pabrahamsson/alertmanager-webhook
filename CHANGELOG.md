@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.4.0...v0.5.0) (2023-01-09)
+
+
+### Features
+
+* Support graceful shutdown ([c25d012](https://github.com/pabrahamsson/alertmanager-webhook/commit/c25d012b2986afbbb59c3e2a6c27cd0fce09c120))
+
 ## [0.4.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.6...v0.4.0) (2023-01-09)
 
 
