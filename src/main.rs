@@ -11,6 +11,7 @@ use hyper::{
 use hyper_tls::HttpsConnector;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use tokio::signal::unix::{signal, SignalKind};
 
 type GenericError = Box<dyn std::error::Error + Send + Sync>;
 type Result<T> = std::result::Result<T, GenericError>;
@@ -160,7 +161,7 @@ async fn response_handler(
 }
 
 #[tokio::main]
-async fn main() -> Result<()> {
+async fn main() {
     pretty_env_logger::init();
     let addr = "0.0.0.0:6000".parse().unwrap();
     let https = HttpsConnector::new();
@@ -175,8 +176,17 @@ async fn main() -> Result<()> {
         }
     });
 
+    let mut stream = signal(SignalKind::terminate()).expect("Failed to create stream");
     let server = Server::bind(&addr).serve(new_service);
     println!("Listening on http://{}", addr);
-    server.await?;
-    Ok(())
+    let graceful = server
+        .with_graceful_shutdown(async move {
+            println!("waiting for signal");
+            stream.recv().await;
+            println!("done waiting for signal");
+        });
+    match tokio::join!(tokio::task::spawn(graceful)).0 {
+        Ok(_) => println!("serving"),
+        Err(e) => println!("ERROR: Thread join error {}", e)
+    };
 }
