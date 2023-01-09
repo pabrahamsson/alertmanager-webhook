@@ -52,10 +52,57 @@ struct Alert {
     status: String,
 }
 
+impl Alert {
+    async fn create_embed(&self) -> DiscordEmbed {
+        let color = if self.status == *"firing" {
+            match self.labels["severity"].as_str() {
+                "critical" => COLOR_RED,
+                "warning" => COLOR_ORANGE,
+                _ => COLOR_BLUE,
+            }
+        } else {
+            COLOR_GREEN
+        };
+        DiscordEmbed {
+            title: format!(
+                "{} - {} ({})",
+                self.labels["alertname"].as_str(),
+                self.status.as_str().to_capitalized(),
+                self.labels["severity"].as_str().to_uppercase()
+            ),
+            description: self.set_description().await,
+            color,
+        }
+    }
+
+    async fn set_description(&self) -> String {
+        if self.annotations.contains_key(&String::from("description")) {
+            self.annotations["description"].clone()
+        } else if self.annotations.contains_key(&String::from("message")) {
+            self.annotations["message"].clone()
+        } else if self.annotations.contains_key(&String::from("summary")) {
+            self.annotations["summary"].clone()
+        } else {
+            String::from("No 'description', 'message' or 'summary' annotation found...")
+        }
+    }
+}
+
 #[derive(Serialize, Debug)]
 struct DiscordMessage {
     //content: String,
     embeds: Vec<DiscordEmbed>,
+}
+
+impl DiscordMessage {
+    async fn new(data: Data) -> DiscordMessage {
+        let mut embeds = Vec::new();
+        for alert in &data.alerts {
+            let embed = alert.create_embed().await;
+            embeds.push(embed);
+        }
+        DiscordMessage { embeds }
+    }
 }
 
 #[derive(Serialize, Debug)]
@@ -63,12 +110,6 @@ struct DiscordEmbed {
     title: String,
     description: String,
     color: u32,
-}
-
-#[derive(Serialize)]
-struct DiscordField {
-    name: String,
-    value: String,
 }
 
 async fn discord_alert(
@@ -87,57 +128,13 @@ async fn discord_alert(
     Ok(Response::new(res.into_body()))
 }
 
-async fn get_description(annotations: &KV) -> String {
-    if annotations.contains_key(&String::from("description")) {
-        annotations["description"].clone()
-    } else if annotations.contains_key(&String::from("message")) {
-        annotations["message"].clone()
-    } else if annotations.contains_key(&String::from("summary")) {
-        annotations["summary"].clone()
-    } else {
-        "No 'description' or 'message' annotation found...".to_string()
-    }
-}
-
-async fn create_embed(alert: &Alert) -> DiscordEmbed {
-    let color = if alert.status == *"firing" {
-        if alert.labels["severity"] == "critical" {
-            COLOR_RED
-        } else if alert.labels["severity"] == "warning" {
-            COLOR_ORANGE
-        } else {
-            COLOR_BLUE
-        }
-    } else {
-        COLOR_GREEN
-    };
-    DiscordEmbed {
-        title: format!(
-            "{} - {} ({})",
-            alert.labels["alertname"].as_str(),
-            alert.status.as_str().to_capitalized(),
-            alert.labels["severity"].as_str().to_uppercase()
-        ),
-        description: get_description(&alert.annotations).await,
-        color,
-    }
-}
-
 async fn alerts_post_response(
     req: Request<Body>,
     client: &Client<HttpsConnector<HttpConnector>>,
 ) -> Result<Response<Body>> {
     let body = hyper::body::aggregate(req).await?;
-    let alerts: Data = serde_json::from_reader(body.reader())?;
-    let mut embeds = Vec::new();
-    for alert in &alerts.alerts {
-        let embed = create_embed(alert).await;
-        embeds.push(embed);
-    }
-    if !embeds.is_empty() {
-        let discord_message = DiscordMessage { embeds };
-        discord_alert(client, discord_message).await?;
-    }
+    let alert: Data = serde_json::from_reader(body.reader())?;
+    discord_alert(client, DiscordMessage::new(alert).await).await?;
     let response = Response::builder()
         .status(StatusCode::OK)
         .header(header::CONTENT_TYPE, "application/json")
