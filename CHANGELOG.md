@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.6...v0.4.0) (2023-01-09)
+
+
+### Features
+
+* Migrate to using methods ([8a65963](https://github.com/pabrahamsson/alertmanager-webhook/commit/8a65963cf304e8454d131f5bf8fd893255af5734))
+
 ## [0.3.6](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.3.5...v0.3.6) (2023-01-05)
 
 
