@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.5.0...v0.6.0) (2023-02-06)
+
+
+### Features
+
+* Add initial tracing support ([b494625](https://github.com/pabrahamsson/alertmanager-webhook/commit/b494625a62b8bee2a6d9805f6e2509d1181b17bf))
+
 ## [0.5.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.4.0...v0.5.0) (2023-01-09)
 
 
