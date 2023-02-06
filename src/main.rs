@@ -9,9 +9,12 @@ use hyper::{
     Body, Client, Method, Request, Response, Server, StatusCode,
 };
 use hyper_tls::HttpsConnector;
+use opentelemetry::global;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use tokio::signal::unix::{signal, SignalKind};
+use tracing::{info, Instrument};
+use tracing_subscriber::{filter, fmt, layer::SubscriberExt, util::SubscriberInitExt};
 
 type GenericError = Box<dyn std::error::Error + Send + Sync>;
 type Result<T> = std::result::Result<T, GenericError>;
@@ -135,6 +138,7 @@ async fn alerts_post_response(
 ) -> Result<Response<Body>> {
     let body = hyper::body::aggregate(req).await?;
     let alert: Data = serde_json::from_reader(body.reader())?;
+    tracing::info!(alert = ?alert);
     discord_alert(client, DiscordMessage::new(alert).await).await?;
     let response = Response::builder()
         .status(StatusCode::OK)
@@ -143,16 +147,29 @@ async fn alerts_post_response(
     Ok(response)
 }
 
+async fn health_response() -> Result<Response<Body>> {
+    tracing::info!("A_OK");
+    Ok(Response::builder()
+        .status(StatusCode::OK)
+        .body(OK.into())
+        .unwrap())
+}
+
 async fn response_handler(
     req: Request<Body>,
     client: Client<HttpsConnector<HttpConnector>>,
 ) -> Result<Response<Body>> {
     match (req.method(), req.uri().path()) {
-        (&Method::POST, "/alerts") => alerts_post_response(req, &client).await,
-        (&Method::GET, "/healthz") => Ok(Response::builder()
-            .status(StatusCode::OK)
-            .body(OK.into())
-            .unwrap()),
+        (&Method::POST, "/alerts") => {
+            alerts_post_response(req, &client)
+                .instrument(tracing::info_span!("/alerts"))
+            .await
+        },
+        (&Method::GET, "/healthz") => {
+            health_response()
+                .instrument(tracing::info_span!("/healthz"))
+            .await
+        },
         _ => Ok(Response::builder()
             .status(StatusCode::NOT_FOUND)
             .body(NOTFOUND.into())
@@ -161,11 +178,22 @@ async fn response_handler(
 }
 
 #[tokio::main]
-async fn main() {
-    pretty_env_logger::init();
+async fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let addr = "0.0.0.0:6000".parse().unwrap();
     let https = HttpsConnector::new();
     let client = Client::builder().build::<_, hyper::Body>(https);
+
+    global::set_text_map_propagator(opentelemetry_jaeger::Propagator::new());
+    let tracer = opentelemetry_jaeger::new_pipeline()
+        .with_service_name("alertmanager-webhook")
+        .install_simple()?;
+    let opentelemetry = tracing_opentelemetry::layer().with_tracer(tracer);
+    let fmt_layer = fmt::layer().json();
+    tracing_subscriber::registry()
+        .with(opentelemetry)
+        .with(filter::LevelFilter::INFO)
+        .with(fmt_layer)
+        .try_init()?;
 
     let new_service = make_service_fn(move |_| {
         let client = client.clone();
@@ -178,15 +206,16 @@ async fn main() {
 
     let mut stream = signal(SignalKind::terminate()).expect("Failed to create stream");
     let server = Server::bind(&addr).serve(new_service);
-    println!("Listening on http://{}", addr);
+    info!("{}", format!("Listening on http://{}", addr));
     let graceful = server
         .with_graceful_shutdown(async move {
-            println!("waiting for signal");
+            info!("{}", format!("waiting forrrrrr signal"));
             stream.recv().await;
-            println!("done waiting for signal");
+            info!("done waiting for signal");
         });
     match tokio::join!(tokio::task::spawn(graceful)).0 {
         Ok(_) => println!("serving"),
         Err(e) => println!("ERROR: Thread join error {}", e)
     };
+    Ok(())
 }
