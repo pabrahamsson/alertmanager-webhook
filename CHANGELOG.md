@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.6.0...v0.6.1) (2023-03-14)
+
+
+### Bug Fixes
+
+* Add generator_url to embedded message ([68fe503](https://github.com/pabrahamsson/alertmanager-webhook/commit/68fe503c7474f73658f50b3f7eb39a0d3cc8bb03))
+
 ## [0.6.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.5.0...v0.6.0) (2023-02-06)
 
 
