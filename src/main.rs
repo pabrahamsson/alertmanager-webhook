@@ -74,7 +74,8 @@ impl Alert {
                 self.status.as_str().to_capitalized(),
                 self.labels["severity"].as_str().to_uppercase()
             ),
-            description: self.set_description().await,
+            description: format!("{}\n\n[More info...]({})", self.set_description().await, self.generator_url.as_str()),
+            //description: self.set_description().await,
             color,
         }
     }
@@ -132,6 +133,7 @@ async fn discord_alert(
     Ok(Response::new(res.into_body()))
 }
 
+#[tracing::instrument]
 async fn alerts_post_response(
     req: Request<Body>,
     client: &Client<HttpsConnector<HttpConnector>>,
@@ -144,9 +146,11 @@ async fn alerts_post_response(
         .status(StatusCode::OK)
         .header(header::CONTENT_TYPE, "application/json")
         .body(Body::empty())?;
+    tracing::info!(discord_response = ?response);
     Ok(response)
 }
 
+#[tracing::instrument]
 async fn health_response() -> Result<Response<Body>> {
     tracing::info!("A_OK");
     Ok(Response::builder()
@@ -184,7 +188,7 @@ async fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let client = Client::builder().build::<_, hyper::Body>(https);
 
     global::set_text_map_propagator(opentelemetry_jaeger::Propagator::new());
-    let tracer = opentelemetry_jaeger::new_pipeline()
+    let tracer = opentelemetry_jaeger::new_agent_pipeline()
         .with_service_name("alertmanager-webhook")
         .install_simple()?;
     let opentelemetry = tracing_opentelemetry::layer().with_tracer(tracer);
