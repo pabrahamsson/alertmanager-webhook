@@ -12,7 +12,7 @@ futures-util = { version = "0.3.28", default-features = false, features = ["std"
 hyper = { version = "0.14", features = ["full"] }
 hyper-tls = "0.5.0"
 opentelemetry = "0.19.0"
-opentelemetry-jaeger = "0.18.0"
+opentelemetry-jaeger = "0.19.0"
 serde = { version = "1.0.177", features = ["derive"] }
 serde_json = "1.0.104"
 tokio = { version = "1.29.1", features = ["full", "tracing"] }
