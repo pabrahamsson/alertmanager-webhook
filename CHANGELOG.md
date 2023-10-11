@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.6.1...v0.7.0) (2023-10-11)
+
+
+### Features
+
+* **tracing:** Switch from otel-jaeger to otel-otlp ([d7c8603](https://github.com/pabrahamsson/alertmanager-webhook/commit/d7c86036acb48edb450075b4067775add9f99488))
+
+
+### Bug Fixes
+
+* **build:** Sort out Cargo.lock rebase mishap ([5c83def](https://github.com/pabrahamsson/alertmanager-webhook/commit/5c83defb3d78181ccb641eb6bdb69cddd46cfff3))
+
 ## [0.6.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.6.0...v0.6.1) (2023-03-14)
 
 
