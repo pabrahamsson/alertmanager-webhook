@@ -9,12 +9,23 @@ use hyper::{
     Body, Client, Method, Request, Response, Server, StatusCode,
 };
 use hyper_tls::HttpsConnector;
-use opentelemetry::global;
+use opentelemetry::trace::TraceError;
+use opentelemetry::{
+    global,
+    propagation::Extractor,
+    sdk::{propagation::TraceContextPropagator, trace as sdktrace},
+};
+use opentelemetry_api::{
+    trace::{Span, SpanKind, Tracer},
+    KeyValue,
+};
+use opentelemetry_otlp::WithExportConfig;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use tokio::signal::unix::{signal, SignalKind};
 use tracing::{info, Instrument};
-use tracing_subscriber::{filter, fmt, layer::SubscriberExt, util::SubscriberInitExt};
+use tracing_subscriber::{layer::SubscriberExt, Registry};
+//use tracing_subscriber::{filter, fmt, layer::SubscriberExt, util::SubscriberInitExt};
 
 type GenericError = Box<dyn std::error::Error + Send + Sync>;
 type Result<T> = std::result::Result<T, GenericError>;
@@ -74,7 +85,11 @@ impl Alert {
                 self.status.as_str().to_capitalized(),
                 self.labels["severity"].as_str().to_uppercase()
             ),
-            description: format!("{}\n\n[More info...]({})", self.set_description().await, self.generator_url.as_str()),
+            description: format!(
+                "{}\n\n[More info...]({})",
+                self.set_description().await,
+                self.generator_url.as_str()
+            ),
             //description: self.set_description().await,
             color,
         }
@@ -115,6 +130,19 @@ struct DiscordEmbed {
     title: String,
     description: String,
     color: u32,
+}
+
+struct MetadataMap<'a>(&'a hyper::header::HeaderMap);
+
+impl<'a> Extractor for MetadataMap<'a> {
+    fn get(&self, key: &str) -> Option<&str> {
+        //self.get(key)
+        self.0.get(key).and_then(|k| k.to_str().ok())
+    }
+
+    fn keys(&self) -> Vec<&str> {
+        self.0.keys().map(|k| k.as_str()).collect::<Vec<&str>>()
+    }
 }
 
 async fn discord_alert(
@@ -163,17 +191,27 @@ async fn response_handler(
     req: Request<Body>,
     client: Client<HttpsConnector<HttpConnector>>,
 ) -> Result<Response<Body>> {
+    let parent_cx =
+        global::get_text_map_propagator(|prop| prop.extract(&MetadataMap(req.headers())));
+    let tracer = global::tracer("alertmanager-webhook");
+    let mut span = tracer
+        .span_builder("alertmanager-webhook/ResponseHandler")
+        .with_kind(SpanKind::Server)
+        .start_with_context(&tracer, &parent_cx);
+    span.add_event("Handling incoming request".to_string(), vec![]);
     match (req.method(), req.uri().path()) {
         (&Method::POST, "/alerts") => {
+            span.set_attribute(KeyValue::new("request.path", "/alerts"));
             alerts_post_response(req, &client)
                 .instrument(tracing::info_span!("/alerts"))
-            .await
-        },
+                .await
+        }
         (&Method::GET, "/healthz") => {
+            span.set_attribute(KeyValue::new("request.path", "/healthz"));
             health_response()
                 .instrument(tracing::info_span!("/healthz"))
-            .await
-        },
+                .await
+        }
         _ => Ok(Response::builder()
             .status(StatusCode::NOT_FOUND)
             .body(NOTFOUND.into())
@@ -181,23 +219,33 @@ async fn response_handler(
     }
 }
 
+fn init_tracer() -> std::result::Result<sdktrace::Tracer, TraceError> {
+    global::set_text_map_propagator(TraceContextPropagator::new());
+    let exporter = opentelemetry_otlp::new_exporter()
+        .http()
+        .with_endpoint("http://localhost:4318/v1/traces")
+        .with_http_client(reqwest::Client::default());
+    //let client = Client::builder().build::<_, hyper::Body>(https);
+    opentelemetry_otlp::new_pipeline()
+        .tracing()
+        .with_exporter(exporter)
+        .install_batch(opentelemetry_sdk::runtime::Tokio)
+}
+
+fn init_hyper_tracing(
+    tracer: sdktrace::Tracer,
+) -> std::result::Result<(), tracing::subscriber::SetGlobalDefaultError> {
+    let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
+    let subscriber = Registry::default().with(telemetry);
+    tracing::subscriber::set_global_default(subscriber)
+}
+
 #[tokio::main]
 async fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
+    init_hyper_tracing(init_tracer()?)?;
     let addr = "0.0.0.0:6000".parse().unwrap();
     let https = HttpsConnector::new();
     let client = Client::builder().build::<_, hyper::Body>(https);
-
-    global::set_text_map_propagator(opentelemetry_jaeger::Propagator::new());
-    let tracer = opentelemetry_jaeger::new_agent_pipeline()
-        .with_service_name("alertmanager-webhook")
-        .install_simple()?;
-    let opentelemetry = tracing_opentelemetry::layer().with_tracer(tracer);
-    let fmt_layer = fmt::layer().json();
-    tracing_subscriber::registry()
-        .with(opentelemetry)
-        .with(filter::LevelFilter::INFO)
-        .with(fmt_layer)
-        .try_init()?;
 
     let new_service = make_service_fn(move |_| {
         let client = client.clone();
@@ -211,15 +259,14 @@ async fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let mut stream = signal(SignalKind::terminate()).expect("Failed to create stream");
     let server = Server::bind(&addr).serve(new_service);
     info!("{}", format!("Listening on http://{}", addr));
-    let graceful = server
-        .with_graceful_shutdown(async move {
-            info!("{}", format!("waiting forrrrrr signal"));
-            stream.recv().await;
-            info!("done waiting for signal");
-        });
+    let graceful = server.with_graceful_shutdown(async move {
+        info!("{}", format!("waiting forrrrrr signal"));
+        stream.recv().await;
+        info!("done waiting for signal");
+    });
     match tokio::join!(tokio::task::spawn(graceful)).0 {
         Ok(_) => println!("serving"),
-        Err(e) => println!("ERROR: Thread join error {}", e)
+        Err(e) => println!("ERROR: Thread join error {}", e),
     };
     Ok(())
 }
