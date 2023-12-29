@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.7.0...v0.8.0) (2023-12-29)
+
+
+### Features
+
+* Switch to Axum and refactor tracing ([f50821a](https://github.com/pabrahamsson/alertmanager-webhook/commit/f50821aa2160059fd7d08a4e47b79a8a5a6d4928))
+
 ## [0.7.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.6.1...v0.7.0) (2023-10-11)
 
 
