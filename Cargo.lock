@@ -28,9 +28,9 @@ dependencies = [
 
 [[package]]
 name = "alertmanager-webhook"
-version = "0.8.0"
+version = "0.8.1"
 dependencies = [
- "axum 0.7.2",
+ "axum 0.7.3",
  "axum-tracing-opentelemetry",
  "changecase",
  "http 1.0.0",
@@ -96,12 +96,12 @@ dependencies = [
 
 [[package]]
 name = "axum"
-version = "0.7.2"
+version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "202651474fe73c62d9e0a56c6133f7a0ff1dc1c8cf7a5b03381af2a26553ac9d"
+checksum = "d09dbe0e490df5da9d69b36dca48a76635288a82f92eca90024883a56202026d"
 dependencies = [
  "async-trait",
- "axum-core 0.4.1",
+ "axum-core 0.4.2",
  "bytes",
  "futures-util",
  "http 1.0.0",
@@ -147,9 +147,9 @@ dependencies = [
 
 [[package]]
 name = "axum-core"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "77cb22c689c44d4c07b0ab44ebc25d69d8ae601a2f28fb8d672d344178fa17aa"
+checksum = "e87c8503f93e6d144ee5690907ba22db7ba79ab001a932ab99034f0fe836b3df"
 dependencies = [
  "async-trait",
  "bytes",
@@ -168,10 +168,11 @@ dependencies = [
 
 [[package]]
 name = "axum-tracing-opentelemetry"
-version = "0.15.0"
-source = "git+https://github.com/davidB/tracing-opentelemetry-instrumentation-sdk.git?branch=axum-0.7#10415594a3bac6111c8a478681e713dfd784a1a8"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bdad298231394729042d1f155b93f9fdf0b5ee1aea0b62404c4d7341f7d8fe08"
 dependencies = [
- "axum 0.7.2",
+ "axum 0.7.3",
  "futures-core",
  "futures-util",
  "http 1.0.0",
@@ -680,8 +681,9 @@ dependencies = [
 
 [[package]]
 name = "init-tracing-opentelemetry"
-version = "0.15.0"
-source = "git+https://github.com/davidB/tracing-opentelemetry-instrumentation-sdk.git?branch=axum-0.7#10415594a3bac6111c8a478681e713dfd784a1a8"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aa1340c5ae05415e15736a2c97b1e79b66cdb1ee7fd9b6212f44aeb9187a52ac"
 dependencies = [
  "opentelemetry",
  "opentelemetry-otlp",
@@ -1732,8 +1734,9 @@ dependencies = [
 
 [[package]]
 name = "tracing-opentelemetry-instrumentation-sdk"
-version = "0.15.0"
-source = "git+https://github.com/davidB/tracing-opentelemetry-instrumentation-sdk.git?branch=axum-0.7#10415594a3bac6111c8a478681e713dfd784a1a8"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9920abb6a3ee3a2af7d30c9ff02900f8481935d36723c3da95cf807468218e8c"
 dependencies = [
  "http 1.0.0",
  "opentelemetry",
