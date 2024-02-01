@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.9.0...v0.9.1) (2024-02-01)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate axum to 0.7.4 ([#151](https://github.com/pabrahamsson/alertmanager-webhook/issues/151)) ([e3354b9](https://github.com/pabrahamsson/alertmanager-webhook/commit/e3354b91ee7e478e63209cd8d8c2bec00c0eba10))
+* **deps:** update rust crate reqwest to 0.11.24 ([#159](https://github.com/pabrahamsson/alertmanager-webhook/issues/159)) ([8dc19ba](https://github.com/pabrahamsson/alertmanager-webhook/commit/8dc19ba9bfe3e742bf3a5797ca9df8d9cf2d3ef7))
+* **deps:** update rust crate serde to 1.0.196 ([#154](https://github.com/pabrahamsson/alertmanager-webhook/issues/154)) ([69d557a](https://github.com/pabrahamsson/alertmanager-webhook/commit/69d557a92ef0f648bfad8d6a8b86228a3ba5427b))
+* **deps:** update rust crate serde_json to 1.0.109 ([#145](https://github.com/pabrahamsson/alertmanager-webhook/issues/145)) ([a046117](https://github.com/pabrahamsson/alertmanager-webhook/commit/a0461170c403ef550abc52a3c13f4a67ea874e8c))
+* **deps:** update rust crate serde_json to 1.0.111 ([#148](https://github.com/pabrahamsson/alertmanager-webhook/issues/148)) ([1c9bc74](https://github.com/pabrahamsson/alertmanager-webhook/commit/1c9bc740cab8f7843ac915f123d0bcb19fc3bf08))
+* **deps:** update rust crate serde_json to 1.0.113 ([#155](https://github.com/pabrahamsson/alertmanager-webhook/issues/155)) ([e3a226f](https://github.com/pabrahamsson/alertmanager-webhook/commit/e3a226ffc3e5ff0e69e668afbafa3f818d0920c7))
+
 ## [0.9.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.8.0...v0.9.0) (2023-12-31)
 
 
