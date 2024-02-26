@@ -681,9 +681,9 @@ dependencies = [
 
 [[package]]
 name = "init-tracing-opentelemetry"
-version = "0.16.0"
+version = "0.17.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aa1340c5ae05415e15736a2c97b1e79b66cdb1ee7fd9b6212f44aeb9187a52ac"
+checksum = "3d868a91efd6af0daeaf4230ccc500a6b3a484e6d467040afba2cc4d30c0c4ac"
 dependencies = [
  "opentelemetry",
  "opentelemetry-otlp",
