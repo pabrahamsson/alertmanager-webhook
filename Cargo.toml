@@ -17,6 +17,6 @@ init-tracing-opentelemetry = { version = "0.16.0", features = [
 reqwest = { version = "0.11.24", features = ["json"] }
 serde = { version = "1.0.196", features = ["derive"] }
 serde_json = "1.0.113"
-tokio = { version = "1.35.1", features = ["full", "tracing"] }
+tokio = { version = "1.37.0", features = ["full", "tracing"] }
 tracing = "0.1.40"
 tracing-opentelemetry-instrumentation-sdk = { version = "0.16.0" }
