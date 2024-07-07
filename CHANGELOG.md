@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.10.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.9.0...v0.10.0) (2024-07-07)
+
+
+### Features
+
+* Use default cosign version ([4d3e321](https://github.com/pabrahamsson/alertmanager-webhook/commit/4d3e321c287e2925d15c88e0bff6396330a24e35))
+
+
+### Bug Fixes
+
+* Auto accept cosign agreement ([52ec6be](https://github.com/pabrahamsson/alertmanager-webhook/commit/52ec6beb2d12665246ea40fb6097b12ca25ce213))
+* **deps:** update rust crate axum to 0.7.4 ([#151](https://github.com/pabrahamsson/alertmanager-webhook/issues/151)) ([e3354b9](https://github.com/pabrahamsson/alertmanager-webhook/commit/e3354b91ee7e478e63209cd8d8c2bec00c0eba10))
+* **deps:** update rust crate axum to v0.7.5 ([#193](https://github.com/pabrahamsson/alertmanager-webhook/issues/193)) ([e36d9a9](https://github.com/pabrahamsson/alertmanager-webhook/commit/e36d9a921126593f3d7042d916235270c1fafba1))
+* **deps:** update rust crate axum-tracing-opentelemetry to 0.19.0 ([#164](https://github.com/pabrahamsson/alertmanager-webhook/issues/164)) ([ea4adcd](https://github.com/pabrahamsson/alertmanager-webhook/commit/ea4adcd680b8aa405d9e4cd3391a90ce2ef98013))
+* **deps:** update rust crate http to v1.1.0 ([#195](https://github.com/pabrahamsson/alertmanager-webhook/issues/195)) ([8c1d5bc](https://github.com/pabrahamsson/alertmanager-webhook/commit/8c1d5bc67cf3f376d1c8e3756f5ee165e9139b62))
+* **deps:** update rust crate init-tracing-opentelemetry to 0.19.0 ([#165](https://github.com/pabrahamsson/alertmanager-webhook/issues/165)) ([1457342](https://github.com/pabrahamsson/alertmanager-webhook/commit/1457342c06f210ea699e54c558c171c4742f5944))
+* **deps:** update rust crate reqwest to 0.11.24 ([#159](https://github.com/pabrahamsson/alertmanager-webhook/issues/159)) ([8dc19ba](https://github.com/pabrahamsson/alertmanager-webhook/commit/8dc19ba9bfe3e742bf3a5797ca9df8d9cf2d3ef7))
+* **deps:** update rust crate reqwest to 0.12.0 ([#178](https://github.com/pabrahamsson/alertmanager-webhook/issues/178)) ([deedf33](https://github.com/pabrahamsson/alertmanager-webhook/commit/deedf33cb2df8624bd145e0412a2d842bf5296d0))
+* **deps:** update rust crate reqwest to v0.12.5 ([#198](https://github.com/pabrahamsson/alertmanager-webhook/issues/198)) ([2a6a264](https://github.com/pabrahamsson/alertmanager-webhook/commit/2a6a2646e8ae3eb28872025d78867e48211f1777))
+* **deps:** update rust crate serde to 1.0.196 ([#154](https://github.com/pabrahamsson/alertmanager-webhook/issues/154)) ([69d557a](https://github.com/pabrahamsson/alertmanager-webhook/commit/69d557a92ef0f648bfad8d6a8b86228a3ba5427b))
+* **deps:** update rust crate serde to v1.0.204 ([#170](https://github.com/pabrahamsson/alertmanager-webhook/issues/170)) ([6fdb63c](https://github.com/pabrahamsson/alertmanager-webhook/commit/6fdb63cb9a20dd1be39990935aacda0899306e22))
+* **deps:** update rust crate serde_json to 1.0.109 ([#145](https://github.com/pabrahamsson/alertmanager-webhook/issues/145)) ([a046117](https://github.com/pabrahamsson/alertmanager-webhook/commit/a0461170c403ef550abc52a3c13f4a67ea874e8c))
+* **deps:** update rust crate serde_json to 1.0.111 ([#148](https://github.com/pabrahamsson/alertmanager-webhook/issues/148)) ([1c9bc74](https://github.com/pabrahamsson/alertmanager-webhook/commit/1c9bc740cab8f7843ac915f123d0bcb19fc3bf08))
+* **deps:** update rust crate serde_json to 1.0.113 ([#155](https://github.com/pabrahamsson/alertmanager-webhook/issues/155)) ([e3a226f](https://github.com/pabrahamsson/alertmanager-webhook/commit/e3a226ffc3e5ff0e69e668afbafa3f818d0920c7))
+* **deps:** update rust crate serde_json to v1.0.120 ([#194](https://github.com/pabrahamsson/alertmanager-webhook/issues/194)) ([d0e9974](https://github.com/pabrahamsson/alertmanager-webhook/commit/d0e9974e2ebb97abc694847f25c9eaaffe7137cf))
+* **deps:** update rust crate tokio to v1.38.0 ([#196](https://github.com/pabrahamsson/alertmanager-webhook/issues/196)) ([674b842](https://github.com/pabrahamsson/alertmanager-webhook/commit/674b8422751552c47db3d169db3ad21a9e97f1ed))
+* **deps:** update rust crate tracing-opentelemetry-instrumentation-sdk to 0.19.0 ([#166](https://github.com/pabrahamsson/alertmanager-webhook/issues/166)) ([e0be2ec](https://github.com/pabrahamsson/alertmanager-webhook/commit/e0be2ec55ed28605571d1d6371ac5d19196c8c29))
+* Use googleapis/release-please-action ([55d40e8](https://github.com/pabrahamsson/alertmanager-webhook/commit/55d40e863e2d40038fe7688a59dff7d761b2f677))
+
 ## [0.9.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.8.0...v0.9.0) (2023-12-31)
 
 
