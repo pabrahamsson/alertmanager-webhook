@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.10.2](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.1...v0.10.2) (2024-08-03)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate serde_json to v1.0.121 ([#206](https://github.com/pabrahamsson/alertmanager-webhook/issues/206)) ([af36d55](https://github.com/pabrahamsson/alertmanager-webhook/commit/af36d558cab8f0a9aa2f39ac5fced71c5381078d))
+* **deps:** update rust crate serde_json to v1.0.122 ([#208](https://github.com/pabrahamsson/alertmanager-webhook/issues/208)) ([584c35b](https://github.com/pabrahamsson/alertmanager-webhook/commit/584c35b9c80d3e4a88babba7927aba121c793071))
+* **deps:** update rust crate tokio to v1.39.2 ([#205](https://github.com/pabrahamsson/alertmanager-webhook/issues/205)) ([98f9712](https://github.com/pabrahamsson/alertmanager-webhook/commit/98f97122d95f627f67d55352a7fcc01507ad3f7d))
+
 ## [0.10.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.0...v0.10.1) (2024-07-24)
 
 
