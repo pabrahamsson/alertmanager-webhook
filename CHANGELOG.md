@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.10.2](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.1...v0.10.2) (2024-09-16)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate axum-tracing-opentelemetry to v0.19.1 ([#221](https://github.com/pabrahamsson/alertmanager-webhook/issues/221)) ([27fa65b](https://github.com/pabrahamsson/alertmanager-webhook/commit/27fa65b90ae667b2ad2411601a0bc43d200a5811))
+* **deps:** update rust crate init-tracing-opentelemetry to 0.20.0 ([#220](https://github.com/pabrahamsson/alertmanager-webhook/issues/220)) ([20faa39](https://github.com/pabrahamsson/alertmanager-webhook/commit/20faa39e40721d12ae7b1382c96102dac00f7b06))
+* **deps:** update rust crate reqwest to v0.12.7 ([#217](https://github.com/pabrahamsson/alertmanager-webhook/issues/217)) ([85abbdd](https://github.com/pabrahamsson/alertmanager-webhook/commit/85abbddce2efe31d068bf421250896a79e3b2fae))
+* **deps:** update rust crate serde to v1.0.205 ([#211](https://github.com/pabrahamsson/alertmanager-webhook/issues/211)) ([47d0c55](https://github.com/pabrahamsson/alertmanager-webhook/commit/47d0c55a713723a5a408036f0097260b51e7f547))
+* **deps:** update rust crate serde to v1.0.206 ([#212](https://github.com/pabrahamsson/alertmanager-webhook/issues/212)) ([a94e9c8](https://github.com/pabrahamsson/alertmanager-webhook/commit/a94e9c8430fb4d36d4107dcd9213206c43dc0aa7))
+* **deps:** update rust crate serde to v1.0.208 ([#214](https://github.com/pabrahamsson/alertmanager-webhook/issues/214)) ([59ac89a](https://github.com/pabrahamsson/alertmanager-webhook/commit/59ac89a093a86cdeb8504b7c02d0287cfc1e851d))
+* **deps:** update rust crate serde to v1.0.210 ([#219](https://github.com/pabrahamsson/alertmanager-webhook/issues/219)) ([b2f196e](https://github.com/pabrahamsson/alertmanager-webhook/commit/b2f196e19c62e2ea50c95d4e1b9f1c593e29acbb))
+* **deps:** update rust crate serde_json to v1.0.121 ([#206](https://github.com/pabrahamsson/alertmanager-webhook/issues/206)) ([af36d55](https://github.com/pabrahamsson/alertmanager-webhook/commit/af36d558cab8f0a9aa2f39ac5fced71c5381078d))
+* **deps:** update rust crate serde_json to v1.0.122 ([#208](https://github.com/pabrahamsson/alertmanager-webhook/issues/208)) ([584c35b](https://github.com/pabrahamsson/alertmanager-webhook/commit/584c35b9c80d3e4a88babba7927aba121c793071))
+* **deps:** update rust crate serde_json to v1.0.124 ([#213](https://github.com/pabrahamsson/alertmanager-webhook/issues/213)) ([8dc6c4a](https://github.com/pabrahamsson/alertmanager-webhook/commit/8dc6c4a226fbda1e9970a35df457fd57acd35a2e))
+* **deps:** update rust crate serde_json to v1.0.125 ([#215](https://github.com/pabrahamsson/alertmanager-webhook/issues/215)) ([2f8f45e](https://github.com/pabrahamsson/alertmanager-webhook/commit/2f8f45eed6829a43f4fb858b8b94a63cdb3e3f7e))
+* **deps:** update rust crate serde_json to v1.0.128 ([#218](https://github.com/pabrahamsson/alertmanager-webhook/issues/218)) ([f5fdcac](https://github.com/pabrahamsson/alertmanager-webhook/commit/f5fdcacdad9aba29f13ab1103e14877d9d78f082))
+* **deps:** update rust crate tokio to v1.39.2 ([#205](https://github.com/pabrahamsson/alertmanager-webhook/issues/205)) ([98f9712](https://github.com/pabrahamsson/alertmanager-webhook/commit/98f97122d95f627f67d55352a7fcc01507ad3f7d))
+* **deps:** update rust crate tokio to v1.39.3 ([#216](https://github.com/pabrahamsson/alertmanager-webhook/issues/216)) ([f1d34d1](https://github.com/pabrahamsson/alertmanager-webhook/commit/f1d34d1112d8aa1cb7d83245119940ba255a3389))
+* **deps:** update rust crate tokio to v1.40.0 ([#223](https://github.com/pabrahamsson/alertmanager-webhook/issues/223)) ([25636a4](https://github.com/pabrahamsson/alertmanager-webhook/commit/25636a439fc8558ed74344bdcfbe2b739f9355d4))
+* **deps:** update rust crate tracing-opentelemetry-instrumentation-sdk to v0.19.1 ([#222](https://github.com/pabrahamsson/alertmanager-webhook/issues/222)) ([37fa29e](https://github.com/pabrahamsson/alertmanager-webhook/commit/37fa29e79f798dadc4504ba223e8a39328b8c16e))
+
 ## [0.10.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.0...v0.10.1) (2024-07-24)
 
 
