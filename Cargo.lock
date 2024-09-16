@@ -28,7 +28,7 @@ dependencies = [
 
 [[package]]
 name = "alertmanager-webhook"
-version = "0.10.1"
+version = "0.10.2"
 dependencies = [
  "axum",
  "axum-tracing-opentelemetry",
@@ -1800,14 +1800,14 @@ dependencies = [
 
 [[package]]
 name = "tracing-opentelemetry-instrumentation-sdk"
-version = "0.19.1"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8159fbb3bd93e20342e7e6ef45b96c5d122cd88043f37ad0e4b5bb052f0f4483"
+checksum = "a7065f4c337874edb2ba504cb1e487b3bb4f1533a5bb6fcdf72da1575564814c"
 dependencies = [
  "http",
- "opentelemetry 0.24.0",
+ "opentelemetry 0.23.0",
  "tracing",
- "tracing-opentelemetry 0.25.0",
+ "tracing-opentelemetry 0.24.0",
 ]
 
 [[package]]
