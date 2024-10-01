@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.10.4](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.3...v0.10.4) (2024-10-01)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate axum to v0.7.7 ([#226](https://github.com/pabrahamsson/alertmanager-webhook/issues/226)) ([982c4da](https://github.com/pabrahamsson/alertmanager-webhook/commit/982c4da9dad2ec3ce5f74348b1607bbc01d640de))
+* **deps:** update rust crate axum-tracing-opentelemetry to 0.21.0 ([#227](https://github.com/pabrahamsson/alertmanager-webhook/issues/227)) ([5da0bdd](https://github.com/pabrahamsson/alertmanager-webhook/commit/5da0bddd68ff29a3422c8ed2e6d9d9de243a26ba))
+* **deps:** update rust crate axum-tracing-opentelemetry to v0.21.1 ([#232](https://github.com/pabrahamsson/alertmanager-webhook/issues/232)) ([c345123](https://github.com/pabrahamsson/alertmanager-webhook/commit/c3451234c819bc62fd8f78852264999be37ccbbb))
+* **deps:** update rust crate init-tracing-opentelemetry to 0.22.0 ([#228](https://github.com/pabrahamsson/alertmanager-webhook/issues/228)) ([e152f73](https://github.com/pabrahamsson/alertmanager-webhook/commit/e152f731a4d41c57a5da114ffa24dc672e99bb87))
+* **deps:** update rust crate reqwest to v0.12.8 ([#230](https://github.com/pabrahamsson/alertmanager-webhook/issues/230)) ([41ede4e](https://github.com/pabrahamsson/alertmanager-webhook/commit/41ede4e04cef39599dfc149ddfa481e26d0185bb))
+* **deps:** update rust crate tracing-opentelemetry-instrumentation-sdk to 0.21.0 ([#229](https://github.com/pabrahamsson/alertmanager-webhook/issues/229)) ([8b19c53](https://github.com/pabrahamsson/alertmanager-webhook/commit/8b19c53ad27d7eb50818aca518eef4ac7aa113be))
+
 ## [0.10.3](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.2...v0.10.3) (2024-09-16)
 
 
