@@ -40,7 +40,7 @@ dependencies = [
  "serde_json",
  "tokio",
  "tracing",
- "tracing-opentelemetry-instrumentation-sdk 0.19.1",
+ "tracing-opentelemetry-instrumentation-sdk",
 ]
 
 [[package]]
@@ -164,7 +164,7 @@ dependencies = [
  "tower 0.5.1",
  "tracing",
  "tracing-opentelemetry 0.26.0",
- "tracing-opentelemetry-instrumentation-sdk 0.21.0",
+ "tracing-opentelemetry-instrumentation-sdk",
 ]
 
 [[package]]
@@ -1782,17 +1782,6 @@ dependencies = [
  "tracing-log",
  "tracing-subscriber",
  "web-time",
-]
-
-[[package]]
-name = "tracing-opentelemetry-instrumentation-sdk"
-version = "0.19.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8159fbb3bd93e20342e7e6ef45b96c5d122cd88043f37ad0e4b5bb052f0f4483"
-dependencies = [
- "opentelemetry 0.24.0",
- "tracing",
- "tracing-opentelemetry 0.25.0",
 ]
 
 [[package]]
