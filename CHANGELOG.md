@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.10.5](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.4...v0.10.5) (2024-11-18)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate axum to v0.7.9 ([#242](https://github.com/pabrahamsson/alertmanager-webhook/issues/242)) ([e69dac4](https://github.com/pabrahamsson/alertmanager-webhook/commit/e69dac47f55186975f942d7824ad9d812ec88fe5))
+* **deps:** update rust crate axum-tracing-opentelemetry to 0.24.0 ([#245](https://github.com/pabrahamsson/alertmanager-webhook/issues/245)) ([7c582a4](https://github.com/pabrahamsson/alertmanager-webhook/commit/7c582a4f1b80863dae487fe23724cd0fe0703613))
+* **deps:** update rust crate init-tracing-opentelemetry to 0.24.0 ([#246](https://github.com/pabrahamsson/alertmanager-webhook/issues/246)) ([493cec6](https://github.com/pabrahamsson/alertmanager-webhook/commit/493cec675b6f835882a6b14ed9ddc6fd421a36e1))
+* **deps:** update rust crate serde_json to v1.0.133 ([#244](https://github.com/pabrahamsson/alertmanager-webhook/issues/244)) ([eafb300](https://github.com/pabrahamsson/alertmanager-webhook/commit/eafb300a936771a9ead76ad84a85cf3fae05b214))
+* **deps:** update rust crate tracing-opentelemetry-instrumentation-sdk to 0.24.0 ([#247](https://github.com/pabrahamsson/alertmanager-webhook/issues/247)) ([ee4bd36](https://github.com/pabrahamsson/alertmanager-webhook/commit/ee4bd3634d49272293681e9404f462ffb4bc14bc))
+
 ## [0.10.4](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.3...v0.10.4) (2024-11-15)
 
 
