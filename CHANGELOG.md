@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.10.7](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.6...v0.10.7) (2024-12-23)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate http to v1.2.0 ([#254](https://github.com/pabrahamsson/alertmanager-webhook/issues/254)) ([50e195d](https://github.com/pabrahamsson/alertmanager-webhook/commit/50e195d9dbdf89a2c7dacc1cf8c8afce53695c6b))
+* **deps:** update rust crate init-tracing-opentelemetry to 0.25.0 ([#257](https://github.com/pabrahamsson/alertmanager-webhook/issues/257)) ([d26ac2a](https://github.com/pabrahamsson/alertmanager-webhook/commit/d26ac2aa1ae32a47588b7c35acbd1b69b9900f43))
+* **deps:** update rust crate serde to v1.0.216 ([#258](https://github.com/pabrahamsson/alertmanager-webhook/issues/258)) ([ee9cee9](https://github.com/pabrahamsson/alertmanager-webhook/commit/ee9cee9841e2acf6f9bddf8e3421f7b3bc23731d))
+* **deps:** update rust crate serde_json to v1.0.134 ([#259](https://github.com/pabrahamsson/alertmanager-webhook/issues/259)) ([93b56ba](https://github.com/pabrahamsson/alertmanager-webhook/commit/93b56ba8799850e0097db08748ef4f1693dc8cf0))
+* **deps:** update rust crate tokio to v1.42.0 ([#253](https://github.com/pabrahamsson/alertmanager-webhook/issues/253)) ([4c39241](https://github.com/pabrahamsson/alertmanager-webhook/commit/4c39241351053d8a373a7c663fe5fdad698e47e1))
+* **deps:** update rust crate tracing to v0.1.41 ([#252](https://github.com/pabrahamsson/alertmanager-webhook/issues/252)) ([d76d907](https://github.com/pabrahamsson/alertmanager-webhook/commit/d76d907ea6da2f9d0d3a700edd56a5ed8d02c85e))
+
 ## [0.10.6](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.5...v0.10.6) (2024-12-02)
 
 
