@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.8](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.7...v0.10.8) (2024-12-23)
+
+
+### Bug Fixes
+
+* **build:** Update dependencies ([aae256e](https://github.com/pabrahamsson/alertmanager-webhook/commit/aae256e2009b4477d118d43483fdc30ea6eee713))
+
 ## [0.10.7](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.6...v0.10.7) (2024-12-23)
 
 
