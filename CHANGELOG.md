@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.11](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.10...v0.10.11) (2025-01-02)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate axum to 0.8.1 ([dffd072](https://github.com/pabrahamsson/alertmanager-webhook/commit/dffd072f9295ba7ca3a84e2f7018ba28458df405))
+* **deps:** update rust crate reqwest to v0.12.12 ([#266](https://github.com/pabrahamsson/alertmanager-webhook/issues/266)) ([9916db9](https://github.com/pabrahamsson/alertmanager-webhook/commit/9916db9067ffed782a23b380a03eff2b303453f2))
+
 ## [0.10.10](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.9...v0.10.10) (2024-12-27)
 
 
