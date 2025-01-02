@@ -2063,9 +2063,9 @@ dependencies = [
 
 [[package]]
 name = "tracing-opentelemetry-instrumentation-sdk"
-version = "0.24.0"
+version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ece512a961221014e69a59c75561a2889835325c7520551ca721145809f9e40c"
+checksum = "86ead6982c2f91372814da69a60fdb29727c2b04b7a47339e86198f9528567ed"
 dependencies = [
  "http",
  "opentelemetry",
