@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.18](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.17...v0.10.18) (2025-02-26)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate axum-tracing-opentelemetry to v0.26.1 ([#295](https://github.com/pabrahamsson/alertmanager-webhook/issues/295)) ([5c54775](https://github.com/pabrahamsson/alertmanager-webhook/commit/5c54775614103d22a89035334b551349ae4681a5))
+* **deps:** update rust crate init-tracing-opentelemetry to v0.27.1 ([#296](https://github.com/pabrahamsson/alertmanager-webhook/issues/296)) ([218ab82](https://github.com/pabrahamsson/alertmanager-webhook/commit/218ab82be84ea2e7b643d43d60e0517552b66f10))
+
 ## [0.10.17](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.16...v0.10.17) (2025-02-25)
 
 
