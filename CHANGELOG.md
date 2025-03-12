@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.10.19](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.18...v0.10.19) (2025-03-12)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate http to v1.3.1 ([#302](https://github.com/pabrahamsson/alertmanager-webhook/issues/302)) ([1d909a1](https://github.com/pabrahamsson/alertmanager-webhook/commit/1d909a19e24e1aa1f37f4fb302b64b5bba1819f3))
+* **deps:** update rust crate reqwest to v0.12.13 ([#301](https://github.com/pabrahamsson/alertmanager-webhook/issues/301)) ([7480bb8](https://github.com/pabrahamsson/alertmanager-webhook/commit/7480bb84f71d971e857d01d8b3771987c785c9fb))
+* **deps:** update rust crate serde to v1.0.219 ([#300](https://github.com/pabrahamsson/alertmanager-webhook/issues/300)) ([e166e9b](https://github.com/pabrahamsson/alertmanager-webhook/commit/e166e9b2653bdd3e2b4391c8362cb4731b6bce58))
+
 ## [0.10.18](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.17...v0.10.18) (2025-03-08)
 
 
