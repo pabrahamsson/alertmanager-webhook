@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.20](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.19...v0.10.20) (2025-03-14)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate reqwest to v0.12.14 ([#304](https://github.com/pabrahamsson/alertmanager-webhook/issues/304)) ([e5590dd](https://github.com/pabrahamsson/alertmanager-webhook/commit/e5590dd2816a92e8e98852907f5296e5428b79bb))
+* **deps:** update rust crate tokio to v1.44.1 ([#305](https://github.com/pabrahamsson/alertmanager-webhook/issues/305)) ([7d8d174](https://github.com/pabrahamsson/alertmanager-webhook/commit/7d8d174fa4da55cac87c547623395eba2c5926e1))
+
 ## [0.10.19](https://github.com/pabrahamsson/alertmanager-webhook/compare/v0.10.18...v0.10.19) (2025-03-12)
 
 
