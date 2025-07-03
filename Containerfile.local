@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi10/ubi-minimal:10.0-1750783441
+FROM registry.access.redhat.com/ubi10/ubi-minimal:10.0-1750783441@sha256:ed9c42c1ab3144be1ad8a955e393fee25e38fe51b8a2022268af40e2c7bde712
 ARG BUILD=debug
 COPY ./target/${BUILD}/alertmanager-webhook /usr/local/bin/alertmanager-webhook
 ENTRYPOINT ["alertmanager-webhook"]
