@@ -1,7 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    ":dependencyDashboard"
-  ]
+    "config:best-practices"
+  ],
+  "kubernetes": {
+    "managerFilePatterns": [
+      "/^\\.tekton/pipelinerun\\.yaml$/",
+      "/^\\.tekton/release-please\\.yaml$/"
+    ]
+  }
 }
