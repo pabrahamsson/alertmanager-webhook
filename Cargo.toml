@@ -10,7 +10,7 @@ axum = { version = "0.8.1", features = ["tracing"] }
 axum-tracing-opentelemetry = { version = "0.29.0" }
 changecase = "0.0.7"
 http = { version = "1.0.0" }
-init-tracing-opentelemetry = { version = "0.28.0", features = [
+init-tracing-opentelemetry = { version = "0.29.0", features = [
   "otlp",
   "tracing_subscriber_ext",
 ] }
