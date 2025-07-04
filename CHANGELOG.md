@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.0...alertmanager-webhook-v0.11.1) (2025-07-04)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate tokio to v1.46.1 ([#332](https://github.com/pabrahamsson/alertmanager-webhook/issues/332)) ([f5e9151](https://github.com/pabrahamsson/alertmanager-webhook/commit/f5e915195bf7987af5b64524c911a979f6840fd6))
+
 ## [0.11.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.10.22...alertmanager-webhook-v0.11.0) (2025-07-03)
 
 
