@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.6](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.5...alertmanager-webhook-v0.11.6) (2025-08-12)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate reqwest to v0.12.23 ([#362](https://github.com/pabrahamsson/alertmanager-webhook/issues/362)) ([1de2923](https://github.com/pabrahamsson/alertmanager-webhook/commit/1de2923b5790157c4ec56d9d55f6a492ed764b7c))
+
 ## [0.11.5](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.4...alertmanager-webhook-v0.11.5) (2025-08-03)
 
 
