@@ -175,7 +175,7 @@ spec:
     - name: source
   steps:
     - name: check-release
-      image: quay.io/pabrahamsson/git:2.47.1-1@sha256:43dc9a4cbec5b220e73906551a8c24c4bbf0e79c4c63f13810c423172e2463bd
+      image: quay.io/pabrahamsson/git:2.47.3-1@sha256:0ede8290f398031a7ecc0c4b6d6ad19b13d411caf2dafbe01f1bc5d94d81df62
       env:
         - name: GITHUB_TOKEN
           valueFrom:
