@@ -28,7 +28,7 @@ dependencies = [
 
 [[package]]
 name = "alertmanager-webhook"
-version = "0.11.8"
+version = "0.11.9"
 dependencies = [
  "axum",
  "axum-tracing-opentelemetry",
