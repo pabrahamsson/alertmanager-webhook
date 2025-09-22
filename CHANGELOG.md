@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.10](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.9...alertmanager-webhook-v0.11.10) (2025-09-22)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate serde to v1.0.226 ([#382](https://github.com/pabrahamsson/alertmanager-webhook/issues/382)) ([a0ac76e](https://github.com/pabrahamsson/alertmanager-webhook/commit/a0ac76e6ca6ea3850ad2cf75a0456b77fdfe3f7e))
+
 ## [0.11.9](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.8...alertmanager-webhook-v0.11.9) (2025-09-16)
 
 
