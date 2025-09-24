@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi10/ubi-minimal:10.0-1758185635@sha256:53de6ac7c3e830b0ddfc9867ff6a8092785bcf156ab4e63dfa9af83c880fd988 as builder
+FROM registry.access.redhat.com/ubi10/ubi-minimal:10.0-1758699349@sha256:649f7ce8082531148ac5e45b61612046a21e36648ab096a77e6ba0c94428cf60 as builder
 WORKDIR /usr/src/app
 COPY Cargo.* .
 COPY src/ src
@@ -8,6 +8,6 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
   microdnf install -y openssl-devel gcc perl && \
   cargo build --release
 
-FROM registry.access.redhat.com/ubi10/ubi-minimal:10.0-1758185635@sha256:53de6ac7c3e830b0ddfc9867ff6a8092785bcf156ab4e63dfa9af83c880fd988
+FROM registry.access.redhat.com/ubi10/ubi-minimal:10.0-1758699349@sha256:649f7ce8082531148ac5e45b61612046a21e36648ab096a77e6ba0c94428cf60
 COPY --from=builder /usr/src/app/target/release/alertmanager-webhook /usr/local/bin/alertmanager-webhook
 ENTRYPOINT ["alertmanager-webhook"]
