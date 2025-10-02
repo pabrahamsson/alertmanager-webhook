@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.11.11](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.10...alertmanager-webhook-v0.11.11) (2025-10-02)
+
+
+### Bug Fixes
+
+* **deps:** update otlp crates to 0.32.0 ([#392](https://github.com/pabrahamsson/alertmanager-webhook/issues/392)) ([faf1f35](https://github.com/pabrahamsson/alertmanager-webhook/commit/faf1f35dc75d3f36b857c5a4697f5ff037a9a62f))
+* **pac:** Tekton Hub is deprecated, use full url for remote tasks ([#388](https://github.com/pabrahamsson/alertmanager-webhook/issues/388)) ([e765be3](https://github.com/pabrahamsson/alertmanager-webhook/commit/e765be359b984366fccd015bd538eb43c0125a42))
+
 ## [0.11.10](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.9...alertmanager-webhook-v0.11.10) (2025-09-22)
 
 
