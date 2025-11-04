@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.12](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.11...alertmanager-webhook-v0.11.12) (2025-11-04)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate init-tracing-opentelemetry to 0.33.0 ([#408](https://github.com/pabrahamsson/alertmanager-webhook/issues/408)) ([c23b22e](https://github.com/pabrahamsson/alertmanager-webhook/commit/c23b22e4b9d47bac3494295025fbab12d3ea747b))
+
 ## [0.11.11](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.10...alertmanager-webhook-v0.11.11) (2025-10-02)
 
 
