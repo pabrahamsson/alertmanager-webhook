@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.11.12](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.11...alertmanager-webhook-v0.11.12) (2025-11-04)
+## [0.11.12](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.11...alertmanager-webhook-v0.11.12) (2025-11-06)
 
 
 ### Bug Fixes
