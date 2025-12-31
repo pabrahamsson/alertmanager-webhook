@@ -6,8 +6,6 @@ metadata:
   annotations:
     pipelinesascode.tekton.dev/on-event: "[push]"
     pipelinesascode.tekton.dev/on-target-branch: "[main]"
-    pipelinesascode.tekton.dev/task-1: "https://github.com/tektoncd/catalog/raw/main/task/git-clone/0.10/git-clone.yaml"
-    pipelinesascode.tekton.dev/task-2: "https://github.com/tektoncd/catalog/raw/main/task/buildah/0.9/buildah.yaml"
     pipelinesascode.tekton.dev/max-keep-runs: "10"
 spec:
   params:
@@ -49,6 +47,7 @@ spec:
               value: release-please
             - name: namespace
               value: openshift-pipelines
+          resolver: cluster
         workspaces:
           - name: source
             workspace: source
@@ -63,6 +62,7 @@ spec:
               value: check-release-status
             - name: namespace
               value: openshift-pipelines
+          resolver: cluster
         params:
           - name: release-created
             value: "$(tasks.release-please.results.release-created)"
@@ -107,135 +107,3 @@ spec:
     - name: dockerconfig-ws
       secret:
         secretName: ghcr-io
----
-apiVersion: tekton.dev/v1
-kind: Task
-metadata:
-  name: release-please
-spec:
-  results:
-    - name: release-created
-      description: True if a new release was created, false otherwise
-    - name: release-pr-created
-      description: Whether a new release PR was created or updated
-  workspaces:
-    - name: source
-  steps:
-    - name: create-release-pr
-      image: quay.io/pabrahamsson/release-please:17.0.0-4@sha256:1e5b1b7b624ca733f1d3f1c8c754fc7e636337ffbc89bdca640eae7857d3fa33
-      env:
-        - name: GH_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: github-token
-              key: token
-      workingDir: $(workspaces.source.path)
-      script: |
-        #!/usr/bin/env bash
-        set -e
-
-        # Run release-please to create/update PR
-        PR_RESULT=$(release-please release-pr \
-          --repo-url=pabrahamsson/alertmanager-webhook \
-          --token=$GH_TOKEN \
-          --debug || echo "No release PR updates needed")
-
-        echo "PR_RESULT: $PR_RESULT"
-
-        # Check if a release PR was created or updated
-        PR_REGEX='^.*Successfully (opened|updated) pull request.*$'
-        if [[ $PR_RESULT =~ $PR_REGEX ]]; then
-          printf "%s" "true" > "$(results.release-pr-created.path)"
-          echo "Release PR was created or updated."
-        else
-          printf "%s" "false" > "$(results.release-pr-created.path)"
-          echo "No updates to Release PR needed."
-        fi
-
-        # Create a GitHub release if needed
-        RELEASE_RESULT=$(release-please github-release \
-          --repo-url=pabrahamsson/alertmanager-webhook \
-          --token=$GH_TOKEN \
-          --debug || echo "No new release created")
-
-        echo "RELEASE_RESULT: $RELEASE_RESULT"
-
-        # Check if a new release was created
-        RELEASE_REGEX='^.*Creating [0-9]+ releases.*$'
-        if [[ $RELEASE_RESULT =~ $RELEASE_REGEX ]]; then
-          printf "%s" "true" > "$(results.release-created.path)"
-          echo "New GitHub release was created."
-        else
-          printf "%s" "false" > "$(results.release-created.path)"
-          echo "No new GitHub release was needed."
-        fi
----
-apiVersion: tekton.dev/v1
-kind: Task
-metadata:
-  name: check-release-status
-spec:
-  params:
-    - name: release-created
-  results:
-    - name: release-created
-      description: True if a new release was created, false otherwise
-    - name: release-tag
-      description: The tag name of the release if one was created
-    - name: release-id
-      description: The ID of the release if one was created
-  workspaces:
-    - name: source
-  steps:
-    - name: check-release
-      image: quay.io/pabrahamsson/git:2.47.3-1@sha256:0ede8290f398031a7ecc0c4b6d6ad19b13d411caf2dafbe01f1bc5d94d81df62
-      env:
-        - name: GITHUB_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: github-token
-              key: token
-      workingDir: $(workspaces.source.path)
-      script: |
-        #!/usr/bin/env bash
-        set -e
-
-        # Check for open PRs from release-please
-        echo "Checking for open Release Please pull requests..."
-        curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/repos/pabrahamsson/alertmanager-webhook/pulls?head=pabrahamsson:release-please" | \
-          jq -r '.[] | "Found PR #\(.number): \(.title)"'
-
-        # Check for latest release
-        echo "Checking latest release information..."
-        LATEST_RELEASE=$(curl -s H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/repos/pabrahamsson/alertmanager-webhook/releases/latest")
-
-        # Get the tag name and display info
-        TAG_NAME=$(echo $LATEST_RELEASE | jq -r '.tag_name')
-        RELEASE_NAME=$(echo $LATEST_RELEASE | jq -r '.name')
-        RELEASE_ID=$(echo $LATEST_RELEASE | jq -r '.id')
-
-        echo "Latest release: $TAG_NAME - $RELEASE_NAME"
-
-        # Check if this is a new release by comparing with recent git history
-        #git config --global --add safe.directory $(pwd)
-        #git fetch --tags
-
-        # Check if the tag exists in local git history, if not it's likely new
-        #if git rev-parse -q --verify "refs/tags/$TAG_NAME" >/dev/null; then
-        #  # Tag exists locally - probably not a new release
-        #  echo -n "false" | tee "$(results.release-created.path)"
-        #  echo
-        #  echo "Release with tag $TAG_NAME already exists locally."
-        #else
-        #  echo -n "true" | tee "$(results.release-created.path)"
-        #  echo
-        #  echo "New release detected with tag $TAG_NAME."
-        #fi
-
-        # Store the tag name and release ID for potential use by later tasks
-        printf "%s" "$(params.release-created)" > "$(results.release-created.path)"
-        printf "%s" "$TAG_NAME" > "$(results.release-tag.path)"
-        printf "%s" "$RELEASE_ID" > "$(results.release-id.path)"
-        echo "release-created: $(params.release-created)"
