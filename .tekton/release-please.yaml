@@ -7,94 +7,26 @@ metadata:
     pipelinesascode.tekton.dev/on-event: "[push]"
     pipelinesascode.tekton.dev/on-target-branch: "[main]"
     pipelinesascode.tekton.dev/max-keep-runs: "10"
+    pipelinesascode.tekton.dev/on-path-changed: "[Cargo.*, src/*.rs, Containerfile]"
 spec:
   params:
+    - name: repo_name
+      value: "{{ repo_name }}"
+    - name: repo_owner
+      value: "{{ repo_owner }}"
     - name: repo_url
       value: "{{ repo_url }}"
     - name: revision
       value: "{{ revision }}"
-  pipelineSpec:
+  pipelineRef:
     params:
-      - name: repo_url
-      - name: revision
-    tasks:
-      - name: fetch-repository
-        params:
-          - name: URL
-            value: $(params.repo_url)
-          - name: REVISION
-            value: $(params.revision)
-        taskRef:
-          params:
-            - name: kind
-              value: task
-            - name: name
-              value: git-clone
-            - name: namespace
-              value: openshift-pipelines
-          resolver: cluster
-        workspaces:
-          - name: output
-            workspace: source
-      - name: release-please
-        runAfter:
-          - fetch-repository
-        taskRef:
-          params:
-            - name: kind
-              value: task
-            - name: name
-              value: release-please
-            - name: namespace
-              value: openshift-pipelines
-          resolver: cluster
-        workspaces:
-          - name: source
-            workspace: source
-      - name: check-release-status
-        runAfter:
-          - release-please
-        taskRef:
-          params:
-            - name: kind
-              value: task
-            - name: name
-              value: check-release-status
-            - name: namespace
-              value: openshift-pipelines
-          resolver: cluster
-        params:
-          - name: release-created
-            value: "$(tasks.release-please.results.release-created)"
-        workspaces:
-          - name: source
-            workspace: source
-      - name: build-and-push-image
-        when:
-          - cel: "'$(tasks.release-please.results.release-created)' == 'true'"
-        runAfter:
-          - check-release-status
-        params:
-          - name: IMAGE
-            value: "ghcr.io/pabrahamsson/alertmanager-webhook:$(tasks.check-release-status.results.release-tag)"
-          - name: DOCKERFILE
-            value: ./Containerfile
-        taskRef:
-          params:
-            - name: kind
-              value: task
-            - name: name
-              value: buildah
-            - name: namespace
-              value: openshift-pipelines
-          resolver: cluster
-        workspaces:
-          - name: source
-            workspace: source
-          - name: dockerconfig
-            workspace: dockerconfig-ws
-    workspaces:
-      - name: source
+      - name: kind
+        value: pipeline
+      - name: name
+        value: pipeline-release-please
+      - name: namespace
+        value: openshift-pipelines
+    resolver: cluster
   workspaces:
     - name: source
       volumeClaimTemplate:
