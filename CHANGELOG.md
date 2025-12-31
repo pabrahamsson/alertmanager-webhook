@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.11.14](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.13...alertmanager-webhook-v0.11.14) (2025-12-31)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate reqwest to 0.13.1 ([#441](https://github.com/pabrahamsson/alertmanager-webhook/issues/441)) ([8e53496](https://github.com/pabrahamsson/alertmanager-webhook/commit/8e53496fb90a3e17e7f485b4b2693279e4246059))
+* **pac:** Use PaC cluster resolver ([#443](https://github.com/pabrahamsson/alertmanager-webhook/issues/443)) ([4564a95](https://github.com/pabrahamsson/alertmanager-webhook/commit/4564a952887b6f01336fcdf5635edbb2ffafb0cb))
+* **pac:** Use shared PaC Release Please pipeline ([#444](https://github.com/pabrahamsson/alertmanager-webhook/issues/444)) ([ecb07ed](https://github.com/pabrahamsson/alertmanager-webhook/commit/ecb07ed50f8a2962f218c69800523e252066daef))
+* **pac:** Use shared Tekton tasks ([#442](https://github.com/pabrahamsson/alertmanager-webhook/issues/442)) ([5bec314](https://github.com/pabrahamsson/alertmanager-webhook/commit/5bec3144590be14ab241a6c1d02e315a0f3d5e1f))
+
 ## [0.11.13](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.12...alertmanager-webhook-v0.11.13) (2025-11-15)
 
 
