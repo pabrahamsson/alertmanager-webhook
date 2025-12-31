@@ -42,7 +42,13 @@ spec:
         runAfter:
           - fetch-repository
         taskRef:
-          name: release-please
+          params:
+            - name: kind
+              value: task
+            - name: name
+              value: release-please
+            - name: namespace
+              value: openshift-pipelines
         workspaces:
           - name: source
             workspace: source
@@ -50,7 +56,13 @@ spec:
         runAfter:
           - release-please
         taskRef:
-          name: check-release-status
+          params:
+            - name: kind
+              value: task
+            - name: name
+              value: check-release-status
+            - name: namespace
+              value: openshift-pipelines
         params:
           - name: release-created
             value: "$(tasks.release-please.results.release-created)"
