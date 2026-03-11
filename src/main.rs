@@ -8,11 +8,9 @@ use axum::{
     routing::{get, post},
     Router,
 };
-use axum_tracing_opentelemetry::middleware::{
-    OtelAxumLayer,
-    OtelInResponseLayer,
-};
+use axum_tracing_opentelemetry::middleware::{OtelAxumLayer, OtelInResponseLayer};
 use changecase::ChangeCase;
+use init_tracing_opentelemetry::TracingConfig;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
@@ -119,7 +117,9 @@ struct DiscordEmbed {
     color: u32,
 }
 
-fn reqwest_to_axum_statuscode(res: &reqwest::Response) -> Result<StatusCode, http::status::InvalidStatusCode> {
+fn reqwest_to_axum_statuscode(
+    res: &reqwest::Response,
+) -> Result<StatusCode, http::status::InvalidStatusCode> {
     StatusCode::from_u16(res.status().as_u16())
 }
 
@@ -130,12 +130,14 @@ async fn discord_alert(
 ) -> Result<reqwest::Response, reqwest::Error> {
     let discord_url = env::var("WEBHOOK").unwrap();
     let res = client.post(discord_url).json(&message).send().await;
-    tracing::Span::current()
-        .record("http.status", format!("{}", &res.as_ref().unwrap().status().as_u16()));
+    tracing::Span::current().record(
+        "http.status",
+        format!("{}", &res.as_ref().unwrap().status().as_u16()),
+    );
     res
 }
 
-#[tracing::instrument(name="post_response", fields(res))]
+#[tracing::instrument(name = "post_response", fields(res))]
 async fn alerts_post_response(
     State(client): State<Client>,
     Json(payload): Json<Data>,
@@ -143,12 +145,18 @@ async fn alerts_post_response(
     match discord_alert(&client, DiscordMessage::new(payload).await).await {
         Ok(res) => {
             tracing::Span::current().record("res", format!("{:?}", &res));
-            (reqwest_to_axum_statuscode(&res).unwrap(), axum::Json(json!({"status": format!("{}", &res.status().as_u16())})))
-        },
+            (
+                reqwest_to_axum_statuscode(&res).unwrap(),
+                axum::Json(json!({"status": format!("{}", &res.status().as_u16())})),
+            )
+        }
         Err(e) => {
             tracing::Span::current().record("res", format!("{:?}", &e));
-            (StatusCode::INTERNAL_SERVER_ERROR, axum::Json(json!({"status":"500"})))
-        },
+            (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                axum::Json(json!({"status":"500"})),
+            )
+        }
     }
 }
 
@@ -156,21 +164,24 @@ async fn health_response() -> impl IntoResponse {
     (StatusCode::OK, axum::Json(json!({"status": "UP"})))
 }
 
-#[tracing::instrument(name="Index")]
+#[tracing::instrument(name = "Index")]
 async fn index() -> impl IntoResponse {
     let trace_id = find_current_trace_id();
     dbg!(&trace_id);
     axum::Json(json!({"status": trace_id}))
 }
 
-#[tracing::instrument(name="404")]
+#[tracing::instrument(name = "404")]
 async fn handler_404(req: Request<Body>) -> impl IntoResponse {
-    (StatusCode::NOT_FOUND, axum::Json(json!({"status": "404 - Lost in the big bitbucket in the sky"})))
+    (
+        StatusCode::NOT_FOUND,
+        axum::Json(json!({"status": "404 - Lost in the big bitbucket in the sky"})),
+    )
 }
 
 #[tokio::main]
 async fn main() {
-    let _ = init_tracing_opentelemetry::tracing_subscriber_ext::init_subscribers();
+    let _ = TracingConfig::production();
     let client = Client::new();
     let app = Router::new()
         .route("/", get(index))
@@ -182,5 +193,7 @@ async fn main() {
         .fallback(handler_404);
     let listener = TcpListener::bind("0.0.0.0:6000").await.unwrap();
     tracing::debug!("Listening on {}", listener.local_addr().unwrap());
-    axum::serve(listener, app.into_make_service()).await.unwrap();
+    axum::serve(listener, app.into_make_service())
+        .await
+        .unwrap();
 }
