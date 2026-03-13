@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.16...alertmanager-webhook-v0.12.0) (2026-03-13)
+
+
+### Features
+
+* **ci:** Remove Github workflows + add clippy sarif task tekton ([#480](https://github.com/pabrahamsson/alertmanager-webhook/issues/480)) ([ccda54d](https://github.com/pabrahamsson/alertmanager-webhook/commit/ccda54d452fb1049bae16d9c2d315a82585e625a))
+
 ## [0.11.16](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.15...alertmanager-webhook-v0.11.16) (2026-01-21)
 
 
