@@ -57,6 +57,45 @@ spec:
         workspaces:
           - name: source
             workspace: source
+      - name: rust-clippy
+        runAfter:
+          - buildah
+        taskRef:
+          params:
+            - name: kind
+              value: task
+            - name: name
+              value: rust-clippy-analyze
+            - name: namespace
+              value: openshift-pipelines
+          resolver: cluster
+        workspaces:
+          - name: source
+            workspace: source
+      - name: github-sarif
+        params:
+          - name: commit-sha
+            value: "{{ revision }}"
+          - name: github-token-secret-name
+            value: "{{ git_auth_secret }}"
+          - name: pull-request-number
+            value: "{{ pull_request_number }}"
+          - name: repo
+            value: "{{ repo_owner }}/{{ repo_name }}"
+        runAfter:
+          - rust-clippy
+        taskRef:
+          params:
+            - name: kind
+              value: task
+            - name: name
+              value: upload-github-sarif
+            - name: namespace
+              value: openshift-pipelines
+          resolver: cluster
+        workspaces:
+          - name: source
+            workspace: source
     workspaces:
       - name: source
   workspaces:
