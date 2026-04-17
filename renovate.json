@@ -1,8 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:best-practices"
+    "config:best-practices",
+    "schedule:daily",
+    "security:openssf-scorecard"
   ],
+  "timezone": "America/New_York",
   "kubernetes": {
     "managerFilePatterns": [
       "/^\\.tekton/pipelinerun\\.yaml$/",
