@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.12.0...alertmanager-webhook-v0.13.0) (2026-04-17)
+
+
+### Features
+
+* **renovate:** Set bot schedule + security badge ([#499](https://github.com/pabrahamsson/alertmanager-webhook/issues/499)) ([d5a207a](https://github.com/pabrahamsson/alertmanager-webhook/commit/d5a207a0117f61dbfcad08415ae117b702183df9))
+
 ## [0.12.0](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.11.16...alertmanager-webhook-v0.12.0) (2026-03-13)
 
 
