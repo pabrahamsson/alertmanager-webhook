@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi10/ubi-minimal:10.1-1777858393@sha256:10af9ad52c3b501a795d3737225dd096945cfd27b7ff0387d74102f6dfcd30f6
+FROM quay.io/hummingbird/core-runtime:latest-openssl@sha256:18defe33ba9ff7ddee8c6790d3f9319bc706ed1e34b22c27b105fefbb462d119
 ARG BUILD=debug
 COPY ./target/${BUILD}/alertmanager-webhook /usr/local/bin/alertmanager-webhook
 ENTRYPOINT ["alertmanager-webhook"]

@@ -9,12 +9,12 @@ release:
 				cargo build -r
 
 docker-debug-build: debug
-				podman pull registry.access.redhat.com/ubi9/ubi-minimal:latest
-				podman build -t $(TAG) . -f Dockerfile.local
+				podman pull quay.io/hummingbird/core-runtime:latest-openssl
+				podman build -t $(TAG) . -f Containerfile.local
 
 docker-release-build: release
-				podman pull registry.access.redhat.com/ubi9/ubi-minimal:latest
-				podman build -t $(TAG) . -f Dockerfile.local --build-arg BUILD=release
+				podman pull quay.io/hummingbird/core-runtime:latest-openssl
+				podman build -t $(TAG) . -f Containerfile.local --build-arg BUILD=release
 
 docker-push:
 				podman push $(TAG)
