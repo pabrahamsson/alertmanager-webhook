@@ -1,4 +1,4 @@
-FROM quay.io/hummingbird/rust:1.95-builder@sha256:0a7e8b80663bf601f741221e10cea0c91fc30cda18ac6a1bc125af91d06610dd AS builder
+FROM quay.io/hummingbird/rust:1.95-builder@sha256:0add3808a6be62bd4e8764c955e397abcc86f1d7459f10eec24a83a25f912e73 AS builder
 WORKDIR /usr/src/app
 COPY Cargo.* .
 COPY src/ src
