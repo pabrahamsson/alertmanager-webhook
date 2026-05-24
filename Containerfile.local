@@ -1,4 +1,4 @@
-FROM quay.io/hummingbird/core-runtime:latest-openssl@sha256:39fc1f437dd49b9429fc195a73ad79599d9895e38e0b7e827abfa19c85d50d82
+FROM quay.io/hummingbird/core-runtime:latest-openssl@sha256:0958ae0587c27d699e92161eeb5ddc58e1aa306970ca2f148756dde4d9c25cb1
 ARG BUILD=debug
 COPY ./target/${BUILD}/alertmanager-webhook /usr/local/bin/alertmanager-webhook
 ENTRYPOINT ["alertmanager-webhook"]
