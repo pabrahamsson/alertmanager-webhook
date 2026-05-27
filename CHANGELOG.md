@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.2](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.13.1...alertmanager-webhook-v0.13.2) (2026-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate axum-tracing-opentelemetry to 0.38.0 ([#543](https://github.com/pabrahamsson/alertmanager-webhook/issues/543)) ([812176c](https://github.com/pabrahamsson/alertmanager-webhook/commit/812176c998e8cb473950152110726762b8151cc9))
+
 ## [0.13.1](https://github.com/pabrahamsson/alertmanager-webhook/compare/alertmanager-webhook-v0.13.0...alertmanager-webhook-v0.13.1) (2026-04-30)
 
 
