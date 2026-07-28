@@ -6,6 +6,6 @@ RUN dnf install -y openssl-devel gcc && \
   dnf clean all && \
   cargo build --release
 
-FROM quay.io/hummingbird/core-runtime:latest-openssl@sha256:6a49c1c66c498236b1d77b4beeeeb08c682536b0dbdcb2d453e9128b5b13a473
+FROM quay.io/hummingbird/core-runtime:latest-openssl@sha256:01cd4bc79402d3b9e7785d458d318040963ff0fcfb3691203d40ad18de39f561
 COPY --from=builder /usr/src/app/target/release/alertmanager-webhook /usr/local/bin/alertmanager-webhook
 ENTRYPOINT ["alertmanager-webhook"]
